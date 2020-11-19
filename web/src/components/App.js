@@ -3,7 +3,6 @@
 import React from 'react';
 import MainPage from './pages/main/MainPage';
 import Error404 from './pages/Error/Error404'
-import Signup from './pages/signup/Signup'
 
 import {
 	BrowserRouter as Router,
@@ -18,7 +17,6 @@ function App() {
 		<Router>
 			<Switch>
 				<Route exact path="/" component={MainPage} />
-				<Route component={Signup} path="/signup" exact />
 				<Route component={Error404} />
 			</Switch>
 		</Router>
