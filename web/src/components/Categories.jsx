@@ -1,7 +1,5 @@
-/** @format */
-
 import React from 'react';
-import Category from './Category';
+import Category from './Category.jsx';
 
 function Categories() {
 	return (

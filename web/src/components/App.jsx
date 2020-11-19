@@ -1,8 +1,8 @@
 /** @format */
 
 import React from 'react';
-import MainPage from './pages/main/MainPage';
-import Error404 from './pages/Error/Error404'
+import MainPage from '../pages/main/MainPage';
+import Error404 from '../pages/Error/Error404'
 
 import {
 	BrowserRouter as Router,

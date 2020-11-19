@@ -1,7 +1,7 @@
 import React from 'react';
-import Categories from './Categories';
-import Videos from './Videos';
-import Header from './Header';
+import Categories from '../../components/Categories';
+import Videos from '../../components/Videos';
+import Header from '../../components/Header'
 import './MainPage.css'
 
 function MainPage() {

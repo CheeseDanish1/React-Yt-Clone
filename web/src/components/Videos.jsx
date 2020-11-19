@@ -1,7 +1,5 @@
-/** @format */
-
 import React from 'react';
-import Video from './Video';
+import Video from './Video.jsx';
 
 function Videos() {
 	return (
