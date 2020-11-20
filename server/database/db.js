@@ -2,9 +2,15 @@
 
 const mongoose = require('mongoose');
 
-let con = mongoose.connect(
-  'Mine!',
+mongoose.connect(
+  'mongodb+srv://sam:wandy07081@db.wvj59.mongodb.net/yt?retryWrites=true&w=majority&authSource=admin',
   {useNewUrlParser: true, useUnifiedTopology: true}
 );
 
-module.exports = con;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  "Connected"
+});
+
+module.exports = db;

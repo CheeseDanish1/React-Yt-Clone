@@ -8,11 +8,19 @@ import socket from '../../extra/socket';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const Signup = () => {
-  // const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
-  const [message, setMessage] = useLocalStorage('signupError', false)
-  const [messageColor, setMessageColor] = useLocalStorage('signupErrorColor', "red")
+  const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
+  const [message, setMessage] = useLocalStorage('signupMessage', "");
+  const [messageColor, setMessageColor] = useLocalStorage(
+    'signupMessageColor',
+    'red'
+  );
 
   const submit = () => {
+    if (isLoggedIn) {
+      setMessageColor('red');
+      setMessage('You are already logged in');
+      window.location.reload();
+    }
 
     let ob = {
       firstName: document.querySelector('.fn').value,
@@ -26,19 +34,21 @@ const Signup = () => {
     socket.emit('signup', ob);
 
     socket.on('signupError', data => {
-      setMessageColor("red")
-      setMessage(data.message)
-      window.location.href = window.location
+      console.log("Error")
+      setMessageColor('red');
+      setMessage(data.message);
+      window.location.href = window.location;
       return console.log(data);
     });
 
     socket.on('signupSuccess', data => {
-      window.location.href = window.location
-      setMessage("Successfully made acount")
-      setMessageColor("Green")
+      console.log("Success")
+      window.location.href = window.location;
+      setMessage('Successfully made acount');
+      setMessageColor('Green');
+      setLoggedIn(true);
       return console.log(data);
     });
-
   };
 
   return (
@@ -125,20 +135,23 @@ const Signup = () => {
         </center>
         <br />
         <br />
-        <output
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: '32px',
-            height: '40px',
-            marginLeft: '8.2vw',
-            marginTop: '-2vh',
-            color: messageColor
-          }}
-        >
-          {message ? message : ""}
-        </output>
+        <center>
+          <output
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '32px',
+              height: '40px',
+              marginLeft: '6.2vw',
+              marginTop: '-2vh',
+              color: messageColor,
+              width: '100%',
+            }}
+          >
+            {message ? message : ''}
+          </output>
+        </center>
       </div>
     </>
   );
