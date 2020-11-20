@@ -3,6 +3,7 @@
 import React from 'react';
 import MainPage from '../pages/main/MainPage.jsx';
 import Error404 from '../pages/Error/Error404.jsx';
+import Signup from '../pages/Signup/Signup.jsx';
 
 import {
   BrowserRouter as Router,
@@ -17,7 +18,8 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route component={Error404} />
+        <Route exact path="/signup" component={Signup} />
+        <Route  component={Error404} />
       </Switch>
     </Router>
   );

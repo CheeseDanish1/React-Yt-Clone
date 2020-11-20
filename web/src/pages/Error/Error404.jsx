@@ -1,6 +1,7 @@
 /** @format */
 
 import React from 'react';
+import ErrorIcon from '../../components/ErrorIcon';
 
 function Error404() {
   return (
@@ -24,33 +25,7 @@ function Error404() {
             transform: 'translate(-50%, -70%)',
           }}
         >
-          <svg height="100" width="100">
-            <polygon
-              points="50,25 17,80 82,80"
-              // stroke-linejoin="round"
-              style={{
-                fill: 'none',
-                stroke: '#ff8a00',
-                strokeWidth: '8',
-                strokeLinejoin: 'round',
-              }}
-            />
-            <text
-              x="42"
-              y="74"
-              fill="#ff8a00"
-              style={{
-                fontFamily: 'sans-serif',
-                fontWeight: '900',
-                fontSize: '42px',
-              }}
-              // font-family="sans-serif"
-              // font-weight="900"
-              // font-size="42px"
-            >
-              !
-            </text>
-          </svg>
+          <ErrorIcon />
           <h1
             style={{
               fontSize: '48px',

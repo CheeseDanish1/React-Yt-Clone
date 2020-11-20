@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react';
 
-function Header() {
+function Header({loggedIn, userInfo}) {
   const [search, setSearch] = useState('');
 
   function handleChange(event) {
@@ -13,7 +13,7 @@ function Header() {
     <header className="header">
       <a href="/#">
         <img
-          src="https://raw.githubusercontent.com/WebDevSimplified/YouTube-Design-Clone/master/logo.png"
+          src="/assets/images/logo.png"
           alt="YouTube Logo"
           className="youtube-logo"
         />
@@ -30,26 +30,26 @@ function Header() {
         <button type="submit" className="search-btn">
           <img
             alt="magnify"
-            src="https://raw.githubusercontent.com/WebDevSimplified/YouTube-Design-Clone/73993ebe5f06d59e9ab68e07830f9cfc585b8f72/magnify.svg"
+            src="/assets/svg/magnify.svg"
           />
         </button>
       </form>
       <div className="menu-icons">
         <a href="/#">
           <img
-            src="https://raw.githubusercontent.com/WebDevSimplified/YouTube-Design-Clone/73993ebe5f06d59e9ab68e07830f9cfc585b8f72/video-plus.svg"
+            src="/assets/svg/video-plus.svg"
             alt="Upload Video"
           />
         </a>
         <a href="/#">
           <img
-            src="https://raw.githubusercontent.com/WebDevSimplified/YouTube-Design-Clone/73993ebe5f06d59e9ab68e07830f9cfc585b8f72/apps.svg"
+            src="/assets/svg/apps.svg"
             alt="Apps"
           />
         </a>
         <a href="/#">
           <img
-            src="https://raw.githubusercontent.com/WebDevSimplified/YouTube-Design-Clone/73993ebe5f06d59e9ab68e07830f9cfc585b8f72/bell.svg"
+            src="/assets/svg/bell.svg"
             alt="Notifications"
           />
         </a>
