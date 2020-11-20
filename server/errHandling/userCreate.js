@@ -1,6 +1,4 @@
 /** @format */
-const UserModel = require('../database/models/user');
-const {v4} = require('uuid');
 const emailRegex = require('../extra/regex/email');
 
 function testUserCreate(socket, data) {
@@ -52,17 +50,6 @@ function testUserCreate(socket, data) {
       additionalInfo: 'pc',
       message: 'Provided email was invalid',
     };
-
-  let u = new UserModel({
-    id: v4(),
-    firstName: data.firstName,
-    lastName: data.lastName,
-    username: data.userName,
-    email: data.email,
-    pwd: data.password,
-  });
-
-  u.save().then(res => console.log(res)).catch(console.error)
 
   return true;
 }
