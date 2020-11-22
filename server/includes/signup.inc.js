@@ -1,11 +1,17 @@
 /** @format */
-
+const {nanoid: id} = require('nanoid');
 const UserModel = require('../database/models/user');
 const emailRegex = require('../extra/regex/email');
-const {v4} = require('uuid');
+const usernameRegex = require('../extra/regex/username');
 const db = require('../database/db');
+const bcrypt = require('bcrypt');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(
+  'ThisJustHasToBeEncryptedSoTheUserCanNotSeeItBecauseItIsTheirIdButItIsNotSensitiveInfoSoPleaseDoNotSueMe'
+);
 
 module.exports = function (socket, data) {
+  let userId = id();
   async function testUserCreate() {
     if (!data.firstName)
       return {
@@ -63,6 +69,16 @@ module.exports = function (socket, data) {
         message: 'Provided email was invalid',
       };
 
+    if (!usernameRegex.test(data.userName))
+      return {
+        type: 'regex',
+        additionalInfo: [
+          'Can only include letters, numbers, underscore, and hyphin',
+          'un',
+        ],
+        message: 'Invalid username',
+      };
+
     let emailExists = await UserModel.findOne({email: data.email});
 
     if (emailExists)
@@ -72,7 +88,9 @@ module.exports = function (socket, data) {
         message: 'The email provided already exists',
       };
 
-    let usernameExists = await UserModel.findOne({userName: data.userName});
+    let usernameExists = await UserModel.findOne({
+      lowercaseUsername: data.userName.toLowerCase(),
+    });
 
     if (usernameExists)
       return {
@@ -86,30 +104,39 @@ module.exports = function (socket, data) {
 
   let rest = testUserCreate(socket, data);
 
-  rest.then(res => {
-    console.log(res, typeof res);
-    if (typeof res == 'object') {
-      socket.emit('signupError', res);
-    } else {
-      socket.emit('signupSuccess', 'Successfully created your account');
+  const password = data.password;
 
-      let u = new UserModel({
-        id: v4(),
-        name: {
-          first: data.firstName,
-          last: data.lastName,
-        },
-        username: data.userName,
-        email: data.email,
-        pwd: data.password,
-        pfp: '',
-      });
+  bcrypt.hash(password, 12).then(hashedPwd => {
+    rest.then(res => {
+      if (typeof res == 'object') {
+        socket.emit('signupError', res);
+      } else {
+        let hashedUserid = cryptr.encrypt(data.id);
 
-      u.save((err, res) => {
-        if (err) return console.error(err);
-      });
-    }
+        socket.emit('signupSuccess', hashedUserid);
 
-    socket.removeAllListeners('signup');
+        let u = new UserModel({
+          id: userId,
+          name: {
+            first: data.firstName,
+            last: data.lastName,
+          },
+          username: data.userName,
+          email: data.email,
+          pwd: hashedPwd,
+          lowercaseUsername: data.userName.toLowerCase(),
+          subscribers: [],
+          subscriptions: [],
+          videos: [],
+          pfp: '',
+        });
+
+        u.save((err, res) => {
+          if (err) return console.error(err);
+        });
+      }
+
+      socket.removeAllListeners('signup');
+    });
   });
 };

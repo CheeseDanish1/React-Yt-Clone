@@ -1,9 +1,17 @@
 /** @format */
 
 import React, {useState} from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
-function Header({loggedIn, userInfo}) {
+function Header() {
   const [search, setSearch] = useState('');
+  const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
+  const [userId, setUserId] = useLocalStorage('userid', null);
+
+  if (!userId && isLoggedIn) setLoggedIn(false);
+  if (userId && !isLoggedIn) setUserId(null);
+  console.log(`You are logged ${isLoggedIn ? 'in' : 'out'}`);
+  // isLoggedIn ? console.log("You are logged in") : console.log("You are logged out")
 
   function handleChange(event) {
     setSearch(event.target.value);
@@ -28,30 +36,18 @@ function Header({loggedIn, userInfo}) {
           aria-label="Search"
         />
         <button type="submit" className="search-btn">
-          <img
-            alt="magnify"
-            src="/assets/svg/magnify.svg"
-          />
+          <img alt="magnify" src="/assets/svg/magnify.svg" />
         </button>
       </form>
       <div className="menu-icons">
         <a href="/#">
-          <img
-            src="/assets/svg/video-plus.svg"
-            alt="Upload Video"
-          />
+          <img src="/assets/svg/video-plus.svg" alt="Upload Video" />
         </a>
         <a href="/#">
-          <img
-            src="/assets/svg/apps.svg"
-            alt="Apps"
-          />
+          <img src="/assets/svg/apps.svg" alt="Apps" />
         </a>
         <a href="/#">
-          <img
-            src="/assets/svg/bell.svg"
-            alt="Notifications"
-          />
+          <img src="/assets/svg/bell.svg" alt="Notifications" />
         </a>
         <a href="/#">
           <img

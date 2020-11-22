@@ -12,9 +12,13 @@ const UserSchema = new mongoose.Schema(
     email: String,
     pwd: String,
     username: String,
-    pfp: String
+    lowercaseUsername: String,
+    pfp: String,
+    subscribers: Array,
+    subscriptions: Array,
+    videos: Array,
   },
-  { collection: 'users' }
+  {collection: 'users'}
 );
 
 const UserModel = (module.exports = mongoose.model('users', UserSchema));
