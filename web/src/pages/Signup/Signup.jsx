@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import Header2 from '../../components/Header';
 import {Input, Button, Modal, Spin} from 'antd';
 import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import socket from '../../extra/socket';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -12,6 +13,9 @@ const Signup = () => {
   const [userId, setUserId] = useLocalStorage('userid', null);
   const [message, setMessage] = useLocalStorage('signupMessage', '');
   const [visible, setVisibility] = useState(true);
+  const [loading, setLoad] = useState(false);
+
+  console.log(userId);
 
   const [spining, setSpin] = useState(false);
 
@@ -20,8 +24,20 @@ const Signup = () => {
     'red'
   );
 
-  const handleOk = () => window.history.back();
-  const handleCancel = () => setVisibility(false);
+  const handleOk = () => (window.location.href = '/');
+  const handleCancel = () => {
+    setLoad(true);
+    setTimeout(() => {
+      setLoad(false);
+    }, 4800);
+    setTimeout(() => {
+      setUserId(null);
+      setLoggedIn(false);
+      setMessageColor('green');
+      setMessage('Successfully logged out');
+      window.location.reload();
+    }, 5000);
+  };
 
   const submit = () => {
     setSpin(true);
@@ -51,12 +67,9 @@ const Signup = () => {
         setMessageColor('red');
         setMessage(data.message);
         setSpin(false);
-      }, 2000);
-
-      setTimeout(() => {
         window.location.href = window.location;
         return console.log(data);
-      }, 5000);
+      }, 2000);
     });
 
     socket.on('signupSuccess', data => {
@@ -80,7 +93,7 @@ const Signup = () => {
   });
 
   return (
-    <>
+    <div className="signup">
       {isLoggedIn ? (
         <Modal
           maskClosable={false}
@@ -88,9 +101,22 @@ const Signup = () => {
           onOk={handleOk}
           onCancel={handleCancel}
           closable={false}
+          footer={[
+            <Button key="back" onClick={handleOk}>
+              Leave
+            </Button>,
+            <Button
+              key="logout"
+              loading={loading}
+              onClick={handleCancel}
+              type="primary"
+            >
+              Logout
+            </Button>,
+          ]}
         >
           <h1>You are already logged in</h1>
-          <p>Press ok to leave the page, or press cancel to continue</p>
+          <p>Would you like to logout, or leave the page?</p>
         </Modal>
       ) : (
         <></>
@@ -209,7 +235,7 @@ const Signup = () => {
           </center>
         </div>
       </Spin>
-    </>
+    </div>
   );
 };
 

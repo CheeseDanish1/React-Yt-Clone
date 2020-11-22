@@ -17,7 +17,7 @@ const Login = () => {
     'loginMessageColor',
     'red'
   );
-  const handleOk = () => window.history.back();
+  const handleOk = () => (window.location.href = '/');
   const handleCancel = () => {
     setLoad(true);
     setTimeout(() => {
@@ -107,7 +107,7 @@ const Login = () => {
             </Button>,
           ]}
         >
-          <h1>You are already logged in</h1>
+          <h3>You are already logged in</h3>
           <p>Would you like to logout, or leave the page?</p>
         </Modal>
       ) : (

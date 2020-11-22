@@ -1,5 +1,4 @@
 /** @format */
-const {nanoid: id} = require('nanoid');
 const UserModel = require('../database/models/user');
 const emailRegex = require('../extra/regex/email');
 const usernameRegex = require('../extra/regex/username');
@@ -10,8 +9,32 @@ const cryptr = new Cryptr(
   'ThisJustHasToBeEncryptedSoTheUserCanNotSeeItBecauseItIsTheirIdButItIsNotSensitiveInfoSoPleaseDoNotSueMe'
 );
 
+function genId() {
+  let chars =
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-';
+  let length = [8, 10, 12];
+  let len = length[Math.floor(Math.random() * length.length)];
+
+  chars = shuffle(chars);
+  chars = chars.slice(0, len);
+  return chars;
+
+  function shuffle(s) {
+    var a = s.split(''),
+      n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a.join('');
+  }
+}
+
 module.exports = function (socket, data) {
-  let userId = id();
+  let userId = genId();
   async function testUserCreate() {
     if (!data.firstName)
       return {
@@ -80,7 +103,6 @@ module.exports = function (socket, data) {
       };
 
     let emailExists = await UserModel.findOne({email: data.email});
-
     if (emailExists)
       return {
         type: 'exists',
@@ -102,8 +124,8 @@ module.exports = function (socket, data) {
     return 1;
   }
 
-  let rest = testUserCreate(socket, data);
 
+  let rest = testUserCreate(socket, data);
   const password = data.password;
 
   bcrypt.hash(password, 12).then(hashedPwd => {
@@ -111,10 +133,9 @@ module.exports = function (socket, data) {
       if (typeof res == 'object') {
         socket.emit('signupError', res);
       } else {
-        let hashedUserid = cryptr.encrypt(data.id);
+        let hashedUserid = cryptr.encrypt(userId);
 
         socket.emit('signupSuccess', hashedUserid);
-
         let u = new UserModel({
           id: userId,
           name: {
