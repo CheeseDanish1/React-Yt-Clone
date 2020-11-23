@@ -1,5 +1,6 @@
 /** @format */
 
+// eslint-disable-next-line
 const db = require('../database/db');
 const bcrypt = require('bcrypt');
 const UserModel = require('../database/models/user');

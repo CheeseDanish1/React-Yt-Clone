@@ -13,12 +13,18 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cryptr": "^6.0.2",
+    "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.15",
     "nanoid": "^3.1.18",
     "socket.io": "^3.0.3"
   },
   "devDependencies": {
+    "eslint": "^7.14.0",
     "nodemon": "^2.0.6"
+  },
+  "engines": {
+    "node": "12.19.0",
+    "npm": "6.14.8"
   }
 }

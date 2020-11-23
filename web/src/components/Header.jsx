@@ -5,7 +5,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 import {Layout} from 'antd';
 
-import Pages from './Pages';
+import Pages from './Menu';
 import Logo from './Logo';
 import InputSection from './InputSection';
 

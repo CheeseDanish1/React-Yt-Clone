@@ -2,6 +2,7 @@
 const UserModel = require('../database/models/user');
 const emailRegex = require('../extra/regex/email');
 const usernameRegex = require('../extra/regex/username');
+// eslint-disable-next-line
 const db = require('../database/db');
 const bcrypt = require('bcrypt');
 const Cryptr = require('cryptr');
@@ -154,6 +155,7 @@ module.exports = function (socket, data) {
 
         u.save((err, res) => {
           if (err) return console.error(err);
+          return res
         });
       }
 

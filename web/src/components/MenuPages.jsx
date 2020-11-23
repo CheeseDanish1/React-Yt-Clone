@@ -1,12 +1,12 @@
 /** @format */
 
 import React from 'react';
-import {Menu, Input} from 'antd';
+import {Menu} from 'antd';
 
 const {Item} = Menu;
-function Pages() {
-  let el = <></>;
 
+function MenuPages() {
+  let el = <></>;
   if (
     !['/login', '/signup', '/'].includes(window.location.pathname.toLowerCase())
   ) {
@@ -14,7 +14,6 @@ function Pages() {
       <Item key={window.location.pathname.toLowerCase()}>{document.title}</Item>
     );
   }
-
   return (
     <Menu
       style={{
@@ -59,5 +58,4 @@ function Pages() {
     </Menu>
   );
 }
-
-export default Pages;
+export default MenuPages;
