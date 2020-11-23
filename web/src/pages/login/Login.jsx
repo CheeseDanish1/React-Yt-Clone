@@ -5,6 +5,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import {Modal, Input, Button, Spin} from 'antd';
 import Header from '../../components/Header';
 import socket from '../../extra/socket';
+import { Helmet } from 'react-helmet'
 
 const Login = () => {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
@@ -84,6 +85,9 @@ const Login = () => {
 
   return (
     <>
+    <Helmet>
+      <title>Login</title>
+    </Helmet>
       <Header />
 
       {isLoggedIn ? (

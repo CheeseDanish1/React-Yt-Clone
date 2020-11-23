@@ -7,6 +7,7 @@ import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import socket from '../../extra/socket';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { Helmet } from 'react-helmet'
 
 const Signup = () => {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
@@ -94,6 +95,9 @@ const Signup = () => {
 
   return (
     <div className="signup">
+      <Helmet>
+        <title>Signup</title>
+      </Helmet>
       {isLoggedIn ? (
         <Modal
           maskClosable={false}

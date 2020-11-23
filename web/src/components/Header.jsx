@@ -23,7 +23,7 @@ function Header() {
   return (
     <>
       <Layout className="layout">
-        <AntdHeader>
+        <AntdHeader style={{backgroundColor: "black"}}>
           <Logo />
           <InputSection />
           <Pages />

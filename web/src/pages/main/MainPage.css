@@ -1,3 +1,7 @@
+.main {
+  background-color: #0b0c0e;
+}
+
 .video-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -14,12 +18,13 @@
 .video-container {
   display: flex;
   flex-direction: column;
+  background-color: #18191c;
 }
 
 .categories {
   padding: 1rem 2rem;
-  border-top: 1px solid #999;
-  border-bottom: 1px solid #999;
+  border-top: 1px solid #fefefe;
+  border-bottom: 1px solid #fefefe;
 }
 
 .category-section {
@@ -68,13 +73,28 @@
   display: flex;
 }
 
-.thumbnail::before {
+/* .thumbnail::before {
   content: attr(data-duration);
   position: absolute;
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   right: 5px;
-  bottom: 5px;
+  top: 5px;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  font-size: 0.9rem;
+} */
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3vh;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  right: 5px;
+  top: 5px;
   padding: 0.1em 0.3em;
   border-radius: 0.3em;
   font-size: 0.9rem;
@@ -112,7 +132,7 @@
   font-weight: bold;
   margin-bottom: 0.5rem;
   text-decoration: none;
-  color: black;
+  color: #f8f8f8;
 }
 
 .video-channel-name {
@@ -129,12 +149,12 @@
 
 
 .video-title:hover {
-  color: black !important;
+  color: white !important;
   text-decoration: none !important;
 }
 
 .video-channel-name:hover {
-  color: #111;
+  color: white;
   text-decoration: none !important;
 }
 

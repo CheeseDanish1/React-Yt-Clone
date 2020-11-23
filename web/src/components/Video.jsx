@@ -1,6 +1,7 @@
 /** @format */
 
 import React from 'react';
+import {ClockCircleOutlined} from '@ant-design/icons';
 
 function Video({
   channelName,
@@ -18,6 +19,10 @@ function Video({
         className="thumbnail"
         data-duration={length}
       >
+        <div className="time">
+          <ClockCircleOutlined />
+          <p style={{marginTop: "2vh", marginLeft: "5px"}}>{length}</p>
+        </div>
         <img
           className="thumbnail-image"
           src={

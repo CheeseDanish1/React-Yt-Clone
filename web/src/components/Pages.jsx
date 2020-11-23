@@ -11,7 +11,12 @@ function Pages() {
     !['/login', '/signup', '/'].includes(window.location.pathname.toLowerCase())
   ) {
     el = (
-      <Item key={window.location.pathname.toLowerCase()}>{document.title}</Item>
+      <Item
+        style={{backgroundColor: '#18191c'}}
+        key={window.location.pathname.toLowerCase()}
+      >
+        {document.title}
+      </Item>
     );
   }
 
@@ -29,6 +34,7 @@ function Pages() {
       defaultSelectedKeys={[window.location.pathname.toLowerCase()]}
     >
       <Item
+        style={{backgroundColor: '#18191c'}}
         onClick={() => {
           if (window.location.pathname.toLowerCase() === '/login') return;
           window.location.pathname = '/login';
@@ -38,6 +44,7 @@ function Pages() {
         Login
       </Item>
       <Item
+        style={{backgroundColor: '#18191c'}}
         onClick={() => {
           if (window.location.pathname.toLowerCase() === '/signup') return;
           window.location.pathname = '/signup';
@@ -47,6 +54,7 @@ function Pages() {
         Signup
       </Item>
       <Item
+        style={{backgroundColor: '#18191c'}}
         onClick={() => {
           if (window.location.pathname.toLowerCase() === '/') return;
           window.location.pathname = '/';
