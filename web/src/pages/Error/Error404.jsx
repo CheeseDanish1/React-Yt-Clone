@@ -49,7 +49,7 @@ function Error404() {
               textAlign: 'center',
             }}
           >
-            If you think what you're looking for should be here, please try
+            If you think what you are looking for should be here, please try
             contacting
             <br />
             the site owner.

@@ -1,36 +1,24 @@
 /** @format */
 
 import React, {useState} from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import {Modal, Input, Button, Spin} from 'antd';
+import {Input, Button, Spin} from 'antd';
 import Header from '../../components/Header';
+
+import useLocalStorage from '../../hooks/useLocalStorage';
 import socket from '../../extra/socket';
+import LoggedinModal from '../../components/LoggedinModal';
 
 const Login = () => {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
   const [userId, setUserId] = useLocalStorage('userid', null);
-  const [visible, setVisibility] = useState(true);
   const [spining, setSpin] = useState(false);
   const [message, setMessage] = useLocalStorage('loginMessage', '');
-  const [loading, setLoad] = useState(false);
   const [messageColor, setMessageColor] = useLocalStorage(
     'loginMessageColor',
     'red'
   );
-  const handleOk = () => (window.location.href = '/');
-  const handleCancel = () => {
-    setLoad(true);
-    setTimeout(() => {
-      setLoad(false);
-    }, 4800);
-    setTimeout(() => {
-      setUserId(null);
-      setLoggedIn(false);
-      setMessageColor('green');
-      setMessage('Successfully logged out');
-      window.location.reload();
-    }, 5000);
-  };
+
+    userId;
 
   function submit() {
     let ob = {
@@ -82,37 +70,16 @@ const Login = () => {
     });
   }
 
+  let mod = <></>;
+  if (isLoggedIn) {
+    mod = <LoggedinModal type="login" />;
+  }
+
   return (
     <>
       <Header />
 
-      {isLoggedIn ? (
-        <Modal
-          maskClosable={false}
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          closable={false}
-          footer={[
-            <Button key="back" onClick={handleOk}>
-              Leave
-            </Button>,
-            <Button
-              key="logout"
-              loading={loading}
-              onClick={handleCancel}
-              type="primary"
-            >
-              Logout
-            </Button>,
-          ]}
-        >
-          <h3>You are already logged in</h3>
-          <p>Would you like to logout, or leave the page?</p>
-        </Modal>
-      ) : (
-        <></>
-      )}
+      {mod}
 
       <Spin
         style={{

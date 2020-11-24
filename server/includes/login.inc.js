@@ -4,10 +4,6 @@
 const db = require('../database/db');
 const bcrypt = require('bcrypt');
 const UserModel = require('../database/models/user');
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr(
-  'ThisJustHasToBeEncryptedSoTheUserCanNotSeeItBecauseItIsTheirIdButItIsNotSensitiveInfoSoPleaseDoNotSueMe'
-);
 
 function login(socket, data) {
   socket.removeAllListeners('login');
@@ -34,8 +30,7 @@ function login(socket, data) {
       if (err) throw err;
 
       if (res == true) {
-        let hash = cryptr.encrypt(user.id);
-        socket.emit('loginS', hash);
+        socket.emit('loginS', user.id);
       } else {
         socket.emit('loginE', {
           type: 'invalid pwd',

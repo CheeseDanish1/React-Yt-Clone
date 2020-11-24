@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Menu} from 'antd';
+import {Link} from 'react-router-dom';
 
 const {Item} = Menu;
 
@@ -18,7 +19,7 @@ function MenuPages() {
     <Menu
       style={{
         width: '16vw',
-        float: 'left',
+        // float: 'left',
         position: 'absolute',
         right: '0',
       }}
@@ -27,33 +28,23 @@ function MenuPages() {
       className="menu"
       defaultSelectedKeys={[window.location.pathname.toLowerCase()]}
     >
-      <Item
-        onClick={() => {
-          if (window.location.pathname.toLowerCase() === '/login') return;
-          window.location.pathname = '/login';
-        }}
-        key="/login"
-      >
-        Login
+      <Item key="/login">
+        <Link style={{textDecoration: 'none'}} to="/login">
+          Login
+        </Link>
       </Item>
-      <Item
-        onClick={() => {
-          if (window.location.pathname.toLowerCase() === '/signup') return;
-          window.location.pathname = '/signup';
-        }}
-        key="/signup"
-      >
-        Signup
+      <Item key="/signup">
+        <Link style={{textDecoration: 'none'}} to="/signup">
+          Signup
+        </Link>
       </Item>
-      <Item
-        onClick={() => {
-          if (window.location.pathname.toLowerCase() === '/') return;
-          window.location.pathname = '/';
-        }}
-        key="/"
-      >
-        Home
+
+      <Item key="/">
+        <Link style={{textDecoration: 'none'}} to="/">
+          Home
+        </Link>
       </Item>
+
       {el}
     </Menu>
   );

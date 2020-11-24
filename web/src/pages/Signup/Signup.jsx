@@ -2,21 +2,21 @@
 
 import React, {useState} from 'react';
 import Header2 from '../../components/Header';
-import {Input, Button, Modal, Spin} from 'antd';
+import {Input, Button, Spin} from 'antd';
+
+import {Helmet} from 'react-helmet';
+
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import socket from '../../extra/socket';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import LoggedinModal from '../../components/LoggedinModal';
 
 const Signup = () => {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
   const [userId, setUserId] = useLocalStorage('userid', null);
   const [message, setMessage] = useLocalStorage('signupMessage', '');
-  const [visible, setVisibility] = useState(true);
-  const [loading, setLoad] = useState(false);
-
-  console.log(userId);
-
   const [spining, setSpin] = useState(false);
 
   const [messageColor, setMessageColor] = useLocalStorage(
@@ -24,20 +24,7 @@ const Signup = () => {
     'red'
   );
 
-  const handleOk = () => (window.location.href = '/');
-  const handleCancel = () => {
-    setLoad(true);
-    setTimeout(() => {
-      setLoad(false);
-    }, 4800);
-    setTimeout(() => {
-      setUserId(null);
-      setLoggedIn(false);
-      setMessageColor('green');
-      setMessage('Successfully logged out');
-      window.location.reload();
-    }, 5000);
-  };
+  userId;
 
   const submit = () => {
     setSpin(true);
@@ -74,6 +61,7 @@ const Signup = () => {
 
     socket.on('signupSuccess', data => {
       setTimeout(() => {
+        data;
         setSpin(false);
         setUserId(data);
         console.log('Success');
@@ -82,11 +70,16 @@ const Signup = () => {
       }, 2000);
 
       setTimeout(() => {
-        window.location.href = window.location;
         setLoggedIn(true);
+        window.location.href = window.location;
       }, 5000);
     });
   };
+
+  let mod = <></>;
+  if (isLoggedIn) {
+    mod = <LoggedinModal type="signup" />;
+  }
 
   document.addEventListener('keypress', e => {
     if (e.key === 'Enter') submit();
@@ -94,43 +87,16 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      {isLoggedIn ? (
-        <Modal
-          maskClosable={false}
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          closable={false}
-          footer={[
-            <Button key="back" onClick={handleOk}>
-              Leave
-            </Button>,
-            <Button
-              key="logout"
-              loading={loading}
-              onClick={handleCancel}
-              type="primary"
-            >
-              Logout
-            </Button>,
-          ]}
-        >
-          <h1>You are already logged in</h1>
-          <p>Would you like to logout, or leave the page?</p>
-        </Modal>
-      ) : (
-        <></>
-      )}
+      <Helmet>
+        <title>Signup</title>
+      </Helmet>
 
       <Header2 />
 
+      {mod}
+
       <Spin
         style={{
-          // textAlign: 'center',
-          // background: 'rgba(0, 0, 0, 0.05)',
-          // borderRadius: '4px',
-          // marginBottom: '20px',
-          // padding: '30px 50px',
           margin: '200px 0',
         }}
         spinning={spining}

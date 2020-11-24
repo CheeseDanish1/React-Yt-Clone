@@ -5,10 +5,7 @@ const usernameRegex = require('../extra/regex/username');
 // eslint-disable-next-line
 const db = require('../database/db');
 const bcrypt = require('bcrypt');
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr(
-  'ThisJustHasToBeEncryptedSoTheUserCanNotSeeItBecauseItIsTheirIdButItIsNotSensitiveInfoSoPleaseDoNotSueMe'
-);
+
 
 function genId() {
   let chars =
@@ -125,7 +122,6 @@ module.exports = function (socket, data) {
     return 1;
   }
 
-
   let rest = testUserCreate(socket, data);
   const password = data.password;
 
@@ -134,9 +130,7 @@ module.exports = function (socket, data) {
       if (typeof res == 'object') {
         socket.emit('signupError', res);
       } else {
-        let hashedUserid = cryptr.encrypt(userId);
-
-        socket.emit('signupSuccess', hashedUserid);
+        socket.emit('signupSuccess', userId);
         let u = new UserModel({
           id: userId,
           name: {
@@ -155,7 +149,7 @@ module.exports = function (socket, data) {
 
         u.save((err, res) => {
           if (err) return console.error(err);
-          return res
+          return res;
         });
       }
 

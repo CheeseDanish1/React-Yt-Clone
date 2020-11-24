@@ -6,11 +6,11 @@ import React, {useState} from 'react';
 function ModalExample() {
   const [visible, setVisibility] = useState(false);
 
-  showModal = () => setVisibility(true);
+  const showModal = () => setVisibility(true);
 
-  handleOk = e => setVisibility(false);
+  const handleOk = () => setVisibility(false);
 
-  handleCancel = e => setVisibility(false);
+  const handleCancel = () => setVisibility(false);
 
   return (
     <>

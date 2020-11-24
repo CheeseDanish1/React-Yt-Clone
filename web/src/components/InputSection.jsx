@@ -15,8 +15,11 @@ function InputSection() {
     <div
       className="input"
       style={{
-        marginLeft: '10vw',
-        float: 'left',
+        // float: 'left',
+        position: 'absolute',
+        left: '50%',
+        transform: 'translate(-50%, 0)',
+        display: "flex"
       }}
     >
       <Input
@@ -26,7 +29,6 @@ function InputSection() {
         onPressEnter={searchForVideo}
         style={{
           marginTop: '2vh',
-          flexGrow: '1',
           maxWidth: '800px',
           width: '50vw',
         }}

@@ -1,11 +1,22 @@
 /** @format */
 
-import React from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
-function Category({name, active}) {
-  return (
-    <button className={`category ${active ? 'active' : ''}`}>{name}</button>
-  );
+class Category extends Component {
+  render() {
+    return (
+      <button onClick={() => this.props.press()} className={`category ${this.props.active ? 'active' : ''}`}>
+        {this.props.name}
+      </button>
+    );
+  }
 }
+
+Category.propTypes = {
+  active: PropTypes.bool,
+  name: PropTypes.string,
+  press: PropTypes.func
+};
 
 export default Category;

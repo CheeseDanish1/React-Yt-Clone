@@ -5,7 +5,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 import {Layout} from 'antd';
 
-import Pages from './Menu';
+import Pages from './MenuPages';
 import Logo from './Logo';
 import InputSection from './InputSection';
 
@@ -15,15 +15,20 @@ function Header() {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
   const [userId, setUserId] = useLocalStorage('userid', null);
 
-  if (!userId && isLoggedIn) setLoggedIn(false);
-  if (userId && !isLoggedIn) setUserId(null);
+
+  if (!userId && isLoggedIn) {
+    setLoggedIn(false);
+  }
+  if (userId && !isLoggedIn) {
+    setUserId(null);
+  }
 
   console.log(`You are logged ${isLoggedIn ? 'in' : 'out'}`);
 
   return (
     <>
       <Layout className="layout">
-        <AntdHeader>
+        <AntdHeader style={{display: "flex"}} >
           <Logo />
           <InputSection />
           <Pages />
