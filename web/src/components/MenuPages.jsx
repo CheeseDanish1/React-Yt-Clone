@@ -28,6 +28,7 @@ function MenuPages() {
       className="menu"
       defaultSelectedKeys={[window.location.pathname.toLowerCase()]}
     >
+      {el}
       <Item key="/login">
         <Link style={{textDecoration: 'none'}} to="/login">
           Login
@@ -38,14 +39,11 @@ function MenuPages() {
           Signup
         </Link>
       </Item>
-
       <Item key="/">
         <Link style={{textDecoration: 'none'}} to="/">
           Home
         </Link>
       </Item>
-
-      {el}
     </Menu>
   );
 }

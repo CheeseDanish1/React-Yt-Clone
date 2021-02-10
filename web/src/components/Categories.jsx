@@ -32,10 +32,11 @@ function Categories() {
       active={index === active}
     />
   ));
-
   return (
-    <div className="categories">
-      <section className="category-section">{nameCategories}</section>
+    <div>
+      <div className="categories">
+        <section className="category-section">{nameCategories}</section>
+      </div>
     </div>
   );
 }

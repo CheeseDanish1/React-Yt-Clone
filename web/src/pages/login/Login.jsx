@@ -3,6 +3,7 @@
 import React, {useState} from 'react';
 import {Input, Button, Spin} from 'antd';
 import Header from '../../components/Header';
+import Title from '../../components/Title';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import socket from '../../extra/socket';
@@ -18,7 +19,7 @@ const Login = () => {
     'red'
   );
 
-    userId;
+  userId;
 
   function submit() {
     let ob = {
@@ -77,6 +78,7 @@ const Login = () => {
 
   return (
     <>
+      <Title title="Login" />
       <Header />
 
       {mod}

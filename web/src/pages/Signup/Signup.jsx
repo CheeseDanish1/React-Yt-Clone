@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import Header2 from '../../components/Header';
 import {Input, Button, Spin} from 'antd';
 
-import {Helmet} from 'react-helmet';
+import Title from '../../components/Title';
 
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import socket from '../../extra/socket';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import LoggedinModal from '../../components/LoggedinModal';
+
 
 const Signup = () => {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('LoggedIn', false);
@@ -71,7 +72,7 @@ const Signup = () => {
 
       setTimeout(() => {
         setLoggedIn(true);
-        window.location.href = window.location;
+        window.location.reload();
       }, 5000);
     });
   };
@@ -87,9 +88,7 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      <Helmet>
-        <title>Signup</title>
-      </Helmet>
+      <Title title="Signup" />
 
       <Header2 />
 

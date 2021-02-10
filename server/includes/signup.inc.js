@@ -6,16 +6,18 @@ const usernameRegex = require('../extra/regex/username');
 const db = require('../database/db');
 const bcrypt = require('bcrypt');
 
-
 function genId() {
-  let chars =
-    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-';
-  let length = [8, 10, 12];
-  let len = length[Math.floor(Math.random() * length.length)];
+  function generateId() {
+    let chars =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-';
+    let length = [8, 10, 12];
+    let len = length[Math.floor(Math.random() * length.length)];
 
-  chars = shuffle(chars);
-  chars = chars.slice(0, len);
-  return chars;
+    chars = shuffle(chars);
+    chars = chars.slice(0, len);
+
+    return chars;
+  }
 
   function shuffle(s) {
     var a = s.split(''),
@@ -29,6 +31,8 @@ function genId() {
     }
     return a.join('');
   }
+
+  return generateId();
 }
 
 module.exports = function (socket, data) {
@@ -145,6 +149,8 @@ module.exports = function (socket, data) {
           subscriptions: [],
           videos: [],
           pfp: '',
+          created: new Date(),
+          createdTimestamp: new Date().getTime() + '',
         });
 
         u.save((err, res) => {
@@ -157,3 +163,30 @@ module.exports = function (socket, data) {
     });
   });
 };
+
+// /**
+//  *
+//  * @param {string} str
+//  * @param {string[]} char
+//  */
+
+// const capitalize = s => {
+//   if (typeof s !== 'string') return '';
+//   return s.charAt(0).toUpperCase() + s.slice(1);
+// };
+
+// function nameize(str, char = ["'", '-', ' ', '.']) {
+//   let string = str.toLowerCase();
+//   char.forEach(temp => {
+//     let pos = str.indexOf(temp);
+//     if (pos) {
+//       let mend = '';
+//       let split = string.split(temp);
+//       split.forEach(temp2 => {
+//         mend += capitalize(temp2) + temp;
+//       });
+//       string = mend.split(0, -1);
+//     }
+//   });
+//   return capitalize(string);
+// }

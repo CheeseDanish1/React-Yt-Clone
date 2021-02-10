@@ -6,7 +6,10 @@ import PropTypes from 'prop-types';
 class Category extends Component {
   render() {
     return (
-      <button onClick={() => this.props.press()} className={`category ${this.props.active ? 'active' : ''}`}>
+      <button
+        onClick={() => this.props.press()}
+        className={`category ${this.props.active ? 'active' : ''}`}
+      >
         {this.props.name}
       </button>
     );
@@ -16,7 +19,7 @@ class Category extends Component {
 Category.propTypes = {
   active: PropTypes.bool,
   name: PropTypes.string,
-  press: PropTypes.func
+  press: PropTypes.func,
 };
 
 export default Category;
